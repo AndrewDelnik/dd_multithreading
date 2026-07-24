@@ -42,18 +42,20 @@ Feel free to experiment with your implementation in [`src/main.cpp`](src/main.cp
 
 ## Build
 Requirements for building this project:
+* Compiler with C++20 support.
 * [CMake](https://cmake.org/download/) version 3.25 or later
 * [Ninja](https://github.com/ninja-build/ninja/releases)
-* Compiler with C++20 support.
 
 Requirements for building benchmarks (optional):
 * [Vcpkg](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started)
 
 ### Windows
-On Windows, you can get all dependencies in the Visual Studio Installer:
+On Windows, you can install all dependencies from the Visual Studio Installer:
 * Desktop development with C++
   - C++ CMake tools for Windows
   - vcpkg package manager
+
+Then open this project as a directory in Visual Studio.
 
 ### Linux
 On Linux, you can use CMake directly:
