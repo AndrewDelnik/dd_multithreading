@@ -1,0 +1,139 @@
+---
+Standard: Latest
+ColumnLimit: 120
+LineEnding: LF
+UseTab: Never
+
+TabWidth: 8
+IndentWidth: 2
+AccessModifierOffset: -2
+ContinuationIndentWidth: 2
+ConstructorInitializerIndentWidth: 0
+IndentRequiresClause: false
+InsertNewlineAtEOF: true
+
+# Functions
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+
+# Arguments
+AlignAfterOpenBracket: DontAlign
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+PackConstructorInitializers: NextLineOnly
+BinPackParameters: true
+BinPackArguments: true
+
+# Alignment
+AlignArrayOfStructures: Left
+BitFieldColonSpacing: None
+PointerAlignment: Left
+
+# Case
+AllowShortCaseExpressionOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: false
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossComments: true
+  AcrossEmptyLines: true
+  AlignCaseColons: false
+
+# Breaks
+AllowBreakBeforeNoexceptSpecifier: Never
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCompoundRequirementOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: Never
+AlwaysBreakBeforeMultilineStrings: true
+BreakAfterAttributes: Never
+BreakAfterReturnType: None
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+BreakTemplateDeclarations: Yes
+RequiresClausePosition: SingleLine
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  # Other AfterControlStatement values
+  # break AllowShortCompoundRequirementOnASingleLine.
+  AfterControlStatement: Never
+  AfterFunction: false
+  BeforeCatch: true
+  SplitEmptyFunction: false
+
+# clang-format 22
+# Cpp11BracedListStyle: Block
+# SpaceInEmptyBraces: Never
+
+# clang-format 21
+Cpp11BracedListStyle: false
+SpaceInEmptyBlock: false
+
+# Qualifiers
+QualifierAlignment: Custom
+QualifierOrder: [ friend, static, constexpr, inline, const, type ]
+
+# Preprocessor
+IndentPPDirectives: None
+SkipMacroDefinitionBody: true
+
+# Empty Lines
+EmptyLineBeforeAccessModifier: LogicalBlock
+SeparateDefinitionBlocks: Leave
+MaxEmptyLinesToKeep: 2
+
+# Comments
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 2
+
+ReflowComments: false
+SpacesBeforeTrailingComments: 2
+
+# Integers
+IntegerLiteralSeparator:
+  Binary: 8
+  BinaryMinDigits: 9
+  Decimal: 3
+  DecimalMinDigits: 4
+  Hex: 8
+  HexMinDigits: 9
+
+# Includes
+SortIncludes: CaseInsensitive
+IncludeBlocks: Preserve
+IncludeCategories:
+  # Relative
+  - Regex: '^"'
+    Priority: 0
+
+  # Benchmark
+  - Regex: '^<benchmark/benchmark\.h>$'
+    Priority: 1
+
+  # Logger
+  - Regex: '^<logger.hpp>$'
+    Priority: 2
+
+  # C Standard Library (C++ Wrappers)
+  - Regex: '^<c(assert|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|stdarg|stddef|stdint|stdio|stdlib|string|time|uchar|wchar|wctype)>$'
+    Priority: 6
+
+  # C Standard Library
+  - Regex: '^<(assert|ctype|errno|fenv|float|inttypes|iso646|limits|locale|malloc|math|setjmp|signal|stdalign|stdarg|stdatomic|stdbit|stdbool|stdckdint|stddef|stddefer|stdint|stdio|stdlib|stdmchar|stdnoreturn|string|tgmath|threads|time|uchar|wchar|wctype)\.h>$'
+    Priority: 7
+
+  # Logger Includes
+  - Regex: '^<(format|stop_token)>$'
+    Priority: 4
+
+  # C++ Standard Library
+  - Regex: '^<[^\.\/]+>$'
+    Priority: 5
+
+  # Third Party
+  - Regex: '^<.*\..*>$'
+    Priority: 3
+...

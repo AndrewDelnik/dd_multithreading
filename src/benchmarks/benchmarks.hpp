@@ -1,0 +1,35 @@
+#pragma once
+#include <benchmark/benchmark.h>
+#include <span>
+#include <string_view>
+#include <thread>
+
+constexpr benchmark::IterationCount benchmark_iterations{
+#ifdef NDEBUG
+  1'024 * 128
+#else
+  1'024
+#endif
+};
+extern std::span<const std::string_view> benchmark_messages;
+
+template <class Logger>
+void string(benchmark::State& state) {
+  static Logger log;
+  static const std::jthread thread{ std::bind_front(&Logger::run, &log) };
+  const auto size = benchmark_messages.size();
+  std::size_t i{};
+  for (auto _ : state) {
+    log.post(benchmark_messages[i++ % size]);
+  }
+}
+
+template <class Logger>
+void format(benchmark::State& state) {
+  static Logger log;
+  static const std::jthread thread{ std::bind_front(&Logger::run, &log) };
+  std::size_t i{};
+  for (auto _ : state) {
+    log.post("{} format test message", i++);
+  }
+}

@@ -1,0 +1,13 @@
+/*
+.*
+!/src/
+!.clangd
+!.clang-format
+!.clang-tidy
+!.editorconfig
+!.gitignore
+!/CMakeLists.txt
+!/CMakePresets.json
+!/compose.yaml
+!/readme.md
+!/vcpkg.json
