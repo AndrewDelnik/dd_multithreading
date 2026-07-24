@@ -124,7 +124,7 @@ int main() {
   for (auto entry : entries) {
     entry->run(entry->name, 32,
 #ifdef NDEBUG
-      1'024 * 128
+      1'024 * 64
 #else
       1'024
 #endif

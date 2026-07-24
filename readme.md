@@ -38,6 +38,8 @@ public:
 };
 ```
 
+Feel free to experiment with your implementation in [`src/main.cpp`](src/main.cpp).
+
 ## Build
 Requirements for building this project:
 * [CMake](https://cmake.org/download/) version 3.25 or later
