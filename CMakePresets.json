@@ -20,6 +20,7 @@
         "CMAKE_CXX_SCAN_FOR_MODULES": false,
         "CMAKE_EXPORT_COMPILE_COMMANDS": true,
         "CMAKE_CONFIGURATION_TYPES": "Debug;Release",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE": true,
         "CMAKE_VERBOSE_MAKEFILE": false
       }
     }
