@@ -1,5 +1,6 @@
 #pragma once
 #include <benchmark/benchmark.h>
+#include <chrono>
 #include <span>
 #include <string_view>
 #include <thread>
@@ -18,6 +19,8 @@ void string(benchmark::State& state) {
   static Logger log;
   static const std::jthread thread{ std::bind_front(&Logger::run, &log) };
   const auto size = benchmark_messages.size();
+  log.post(benchmark_messages[0]);  // warmup
+  std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
   std::size_t i{};
   for (auto _ : state) {
     log.post(benchmark_messages[i++ % size]);
@@ -28,6 +31,8 @@ template <class Logger>
 void format(benchmark::State& state) {
   static Logger log;
   static const std::jthread thread{ std::bind_front(&Logger::run, &log) };
+  log.post("{} format test message", 0);  // warmup
+  std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
   std::size_t i{};
   for (auto _ : state) {
     log.post("{} format test message", i++);
