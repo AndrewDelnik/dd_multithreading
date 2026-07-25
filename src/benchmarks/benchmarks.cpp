@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     auto it = std::back_inserter(benchmark_messages_text);
     for (std::size_t i = 0; i < benchmark_messages_size; i++) {
       const auto start = benchmark_messages_text.size();
-      std::format_to(it, "{} format test message", i);
+      std::format_to(it, "{} string test message", i);
       sizes[i] = benchmark_messages_text.size() - start;
     }
     std::vector<std::string_view> messages;
