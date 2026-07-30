@@ -38,6 +38,12 @@ public:
 };
 ```
 
+The `benchmarks` and `tests` targets uphold the following, which you may rely on:
+1. A message never exceeds 256 characters, including formatted output.
+2. A stop is requested only after all producer threads have joined.
+3. The consumer thread is joined before the logger is destroyed.
+4. At most one logger object exists at any time.
+
 Feel free to experiment with your implementation in [`src/main.cpp`](src/main.cpp).
 
 ## Build
