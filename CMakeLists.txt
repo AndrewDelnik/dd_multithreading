@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
-set(VCPKG_INSTALL_OPTIONS "--binarysource=clear\;files,${CMAKE_CURRENT_LIST_DIR}/.cache/binarysource,readwrite")
+set(VCPKG_INSTALL_OPTIONS "--no-print-usage")
 list(APPEND VCPKG_INSTALL_OPTIONS "--x-buildtrees-root=${CMAKE_CURRENT_LIST_DIR}/.cache/buildtrees")
 list(APPEND VCPKG_INSTALL_OPTIONS "--x-packages-root=${CMAKE_CURRENT_LIST_DIR}/.cache/packages")
-list(APPEND VCPKG_INSTALL_OPTIONS "--downloads-root=${CMAKE_CURRENT_LIST_DIR}/.cache/downloads")
-list(APPEND VCPKG_INSTALL_OPTIONS "--no-print-usage")
 if(DEFINED CMAKE_TOOLCHAIN_FILE AND NOT EXISTS ${CMAKE_TOOLCHAIN_FILE})
   unset(CMAKE_TOOLCHAIN_FILE CACHE)
+endif()
+if(DEFINED ENV{X_VCPKG_REGISTRIES_CACHE})
+  file(MAKE_DIRECTORY $ENV{X_VCPKG_REGISTRIES_CACHE})
 endif()
 project(multithreading DESCRIPTION "Multithreading" VERSION 0.2.0 LANGUAGES CXX)
 
@@ -31,9 +32,6 @@ if(CMAKE_TOOLCHAIN_FILE MATCHES "vcpkg.cmake$")
 
   find_package(quill CONFIG REQUIRED)
   list(APPEND THIRD_PARTY_LIBRARIES quill::quill)
-
-  find_package(folly CONFIG REQUIRED)
-  list(APPEND THIRD_PARTY_LIBRARIES Folly::folly)
 endif()
 
 add_library(logger OBJECT src/logger.hpp src/logger.cpp)
