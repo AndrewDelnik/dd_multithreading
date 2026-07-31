@@ -138,7 +138,10 @@ docker compose run --rm -u "$(id -u):$(id -g)" dev setarch --addr-no-randomize b
 ```
 
 <!--
-# Remove everything.
+# Clean project.
+rm -rf build .cache/buildtrees .cache/downloads .cache/packages
+
+# Clean docker.
 docker compose down --rmi all -v --remove-orphans
 docker builder prune --force
 -->
