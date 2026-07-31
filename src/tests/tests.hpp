@@ -85,7 +85,7 @@ private:
         start.wait(false);
         for (std::size_t index = 1; index <= messages_count; index++) {
           if constexpr (requires { requires Logger::tests_templated_post; }) {
-            logger.post<"{}:{} format test message">(thread, index);
+            logger.template post<"{}:{} format test message">(thread, index);
           } else {
             logger.post("{}:{} format test message", thread, index);
           }

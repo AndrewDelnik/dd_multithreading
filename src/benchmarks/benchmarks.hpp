@@ -38,7 +38,7 @@ template <class Logger>
 void format(benchmark::State& state) {
   auto& logger = get_logger<Logger>();
   if constexpr (requires { requires Logger::tests_templated_post; }) {
-    logger.post<"{} format test message">(0);  // warmup
+    logger.template post<"{} format test message">(0);  // warmup
   } else {
     logger.post("{} format test message", 0);  // warmup
   }
@@ -46,7 +46,7 @@ void format(benchmark::State& state) {
   std::size_t i{};
   for (auto _ : state) {
     if constexpr (requires { requires Logger::tests_templated_post; }) {
-      logger.post<"{} format test message">(i++);
+      logger.template post<"{} format test message">(i++);
     } else {
       logger.post("{} format test message", i++);
     }
