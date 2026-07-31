@@ -22,6 +22,18 @@ if(CMAKE_TOOLCHAIN_FILE MATCHES "vcpkg.cmake$")
 
   find_package(spdlog CONFIG REQUIRED)
   list(APPEND THIRD_PARTY_LIBRARIES spdlog::spdlog_header_only)
+
+  find_package(MPMCQueue CONFIG REQUIRED)
+  list(APPEND THIRD_PARTY_LIBRARIES MPMCQueue::MPMCQueue)
+
+  find_package(SPSCQueue CONFIG REQUIRED)
+  list(APPEND THIRD_PARTY_LIBRARIES SPSCQueue::SPSCQueue)
+
+  find_package(quill CONFIG REQUIRED)
+  list(APPEND THIRD_PARTY_LIBRARIES quill::quill)
+
+  find_package(folly CONFIG REQUIRED)
+  list(APPEND THIRD_PARTY_LIBRARIES Folly::folly)
 endif()
 
 add_library(logger OBJECT src/logger.hpp src/logger.cpp)

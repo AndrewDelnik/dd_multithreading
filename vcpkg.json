@@ -16,6 +16,33 @@
     },
     "boost-asio",
     "boost-lockfree",
-    "concurrentqueue"
+    "concurrentqueue",
+    "mpmcqueue",
+    "spscqueue",
+    "quill",
+    {
+      "name": "folly",
+      "default-features": false
+    },
+    {
+      "name": "boost-regex",
+      "default-features": false
+    },
+    {
+      "name": "glog",
+      "default-features": false
+    },
+    {
+      "name": "libevent",
+      "default-features": false
+    },
+    {
+      "name": "liblzma",
+      "default-features": false
+    },
+    {
+      "name": "openssl",
+      "default-features": false
+    }
   ]
 }
