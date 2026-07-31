@@ -46,6 +46,36 @@ The `benchmarks` and `tests` targets uphold the following, which you may rely on
 
 Feel free to experiment with your implementation in [`src/main.cpp`](src/main.cpp).
 
+<details>
+<summary><b>Advanced Configuration</b></summary>
+
+The tests and benchmarks harness supports the following traits:
+
+### Divisor
+Divides the per-thread message count by this value, for loggers too slow to run the full count.
+
+```cpp
+static constexpr std::size_t tests_divisor{ 256 };
+```
+
+### Managed Thread
+Suppresses the check that `print` is called on the `run` thread.
+Set this for loggers whose backend owns the consumer thread.
+
+```cpp
+static constexpr bool tests_managed_thread{ true };
+```
+
+### Templated Post
+Makes the harness pass the format string as a template argument instead of a function argument,
+replacing `logger.post("format {}", 1)` with `logger.post<"format {}">(1)`.
+
+```cpp
+static constexpr bool tests_templated_post{ true };
+```
+
+</details>
+
 ## Build
 Requirements for building this project:
 * Compiler with C++20 support.

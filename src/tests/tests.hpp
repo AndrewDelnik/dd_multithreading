@@ -17,7 +17,7 @@ struct test_entry {
 extern test_entry tests;
 
 void reset_print(const char* name, std::thread::id id);
-void check_print(const char* name, std::size_t threads, std::size_t messages, bool disable_invalid_thread_error = true);
+void check_print(const char* name, std::size_t threads, std::size_t messages, bool managed_thread, double divisor);
 
 template <class Logger>
 class test {
@@ -37,6 +37,10 @@ public:
 
 private:
   static void run(const char* name, std::size_t threads_count, std::size_t messages_count) {
+    if constexpr (requires { requires Logger::tests_divisor > 1; }) {
+      messages_count = std::max(std::size_t{ 16 }, messages_count / Logger::tests_divisor);
+    }
+
     assert(threads_count > 0 && threads_count % 2 == 0 && messages_count > 0);
     static constexpr const char* string_literal_text{ "string literal test message" };
     static constexpr std::size_t string_literal_size{
@@ -80,7 +84,11 @@ private:
         ready.count_down();
         start.wait(false);
         for (std::size_t index = 1; index <= messages_count; index++) {
-          logger.post("{}:{} format test message", thread, index);
+          if constexpr (requires { requires Logger::tests_templated_post; }) {
+            logger.post<"{}:{} format test message">(thread, index);
+          } else {
+            logger.post("{}:{} format test message", thread, index);
+          }
         }
       });
     }
@@ -90,11 +98,15 @@ private:
     threads.clear();
     thread.request_stop();
     thread.join();
-    auto disable_invalid_thread_error = false;
-    if constexpr (requires { requires Logger::disable_invalid_thread_error; }) {
-      disable_invalid_thread_error = Logger::disable_invalid_thread_error;
+    auto managed_thread = false;
+    if constexpr (requires { requires Logger::tests_managed_thread; }) {
+      managed_thread = Logger::tests_managed_thread;
     }
-    check_print(name, threads_count, messages_count, disable_invalid_thread_error);
+    auto divisor = 1.0;
+    if constexpr (requires { requires Logger::tests_divisor > 1; }) {
+      divisor = static_cast<double>(Logger::tests_divisor);
+    }
+    check_print(name, threads_count, messages_count, managed_thread, divisor);
   }
 
   test_entry entry_;

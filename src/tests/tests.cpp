@@ -41,7 +41,7 @@ void reset_print(const char* name, std::thread::id id) {
   std::fflush(stderr);
 }
 
-void check_print(const char* name, std::size_t threads, std::size_t messages, bool disable_invalid_thread_error) {
+void check_print(const char* name, std::size_t threads, std::size_t messages, bool managed_thread, double divisor) {
   std::lock_guard lock{ print_mutex };
   if (print_info.empty()) {
     std::fprintf(stderr, "\n  0/%zu messages printed\n", messages * threads);
@@ -53,14 +53,15 @@ void check_print(const char* name, std::size_t threads, std::size_t messages, bo
   const auto total = std::reduce(begin(indices), end(indices), std::size_t{ 0 });
   const auto first = std::ranges::min(values, {}, &print_data::first).first;
   const auto last = std::ranges::max(values, {}, &print_data::last).last;
-  std::fprintf(stderr, "  %7.3lfs\n", std::chrono::duration_cast<std::chrono::duration<double>>(last - first).count());
+  const auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(last - first).count() * divisor;
+  std::fprintf(stderr, "  %7.3lfs\n", duration);
   if (total != messages * threads) {
     std::fprintf(stderr, "  %zu/%zu messages printed\n", total, messages * threads);
   }
   if (print_info.size() != threads) {
     std::fprintf(stderr, "  %zu/%zu threads posted messages\n", print_info.size(), threads);
   }
-  if (invalid_thread_error && !disable_invalid_thread_error) {
+  if (invalid_thread_error && !managed_thread) {
     std::fprintf(stderr, "  %zu messages from invalid threads\n", invalid_thread_error);
   }
   if (invalid_index_error) {

@@ -5,8 +5,17 @@
 void (*print)(std::string_view message) = [](std::string_view message) {};
 std::span<const std::string_view> benchmark_messages;
 
-BENCHMARK(string<logger>)->Threads(32)->Iterations(benchmark_iterations);
-BENCHMARK(format<logger>)->Threads(32)->Iterations(benchmark_iterations);
+template <class Logger>
+consteval std::size_t divisor() {
+  if constexpr (requires { requires Logger::tests_divisor > 1; }) {
+    return Logger::tests_divisor;
+  } else {
+    return 1;
+  }
+}
+
+BENCHMARK(string<logger>)->Threads(32)->Iterations(benchmark_iterations / divisor<logger>());
+BENCHMARK(format<logger>)->Threads(32)->Iterations(benchmark_iterations / divisor<logger>());
 
 int main(int argc, char** argv) {
   benchmark::Initialize(&argc, argv);
