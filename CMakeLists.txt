@@ -46,6 +46,9 @@ add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE logger)
 
 file(GLOB LOGGER_HEADERS src/logger.hpp solutions/*.hpp)
+if(WIN32 AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/solutions/windows/slist.hpp)
+  list(APPEND LOGGER_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/solutions/windows/slist.hpp)
+endif()
 
 add_subdirectory(src/tests)
 add_subdirectory(src/benchmarks)
