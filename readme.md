@@ -76,6 +76,13 @@ static constexpr bool tests_templated_post{ true };
 
 </details>
 
+## Task completion
+
+`logger` implementation:
+
+```cpp
+```
+
 ## Build
 Requirements for building this project:
 * Compiler with C++20 support.
