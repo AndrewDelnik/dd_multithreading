@@ -1,6 +1,5 @@
 #include <logger.hpp>
 #include <functional>
-#include <mutex>
 #include <thread>
 #include <cstdio>
 
