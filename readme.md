@@ -76,7 +76,7 @@ static constexpr bool tests_templated_post{ true };
 
 </details>
 
-## Task completion
+## Approach
 
 `logger` implementation:
 
