@@ -80,8 +80,14 @@ static constexpr bool tests_templated_post{ true };
 
 `logger` implementation:
 
-```cpp
-```
+- Uses `std::deque<std::string>` as the message queue.
+- A mutex protects the queue from concurrent access and prevents data races.
+- The queue is bounded by `QUEUE_SIZE`. Producers wait on the `not_full` condition variable when the queue reaches its capacity.
+- The consumer waits for new messages instead of continuously polling an empty queue.
+- `std::stop_token` is used for cooperative shutdown after all queued messages have been processed.
+
+Output of test execution:
+`+ logger    0.695s`
 
 ## Build
 Requirements for building this project:
